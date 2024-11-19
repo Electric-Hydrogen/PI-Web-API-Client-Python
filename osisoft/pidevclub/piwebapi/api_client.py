@@ -1,15 +1,13 @@
 # coding: utf-8
 from requests.auth import HTTPBasicAuth
-from requests_kerberos import HTTPKerberosAuth, OPTIONAL
-from requests_ntlm import HttpNtlmAuth
 """
 	Copyright 2017 OSIsoft, LLC
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  <http://www.apache.org/licenses/LICENSE-2.0>
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -84,10 +82,12 @@ class ApiClient(object):
 
 
     def set_kerberos_auth(self):
-        self.rest_client.auth = HTTPKerberosAuth(force_preemptive=True, mutual_authentication=OPTIONAL, delegate=True)
+        pass
+        # self.rest_client.auth = HTTPKerberosAuth(force_preemptive=True, mutual_authentication=OPTIONAL, delegate=True)
 
     def set_ntlm_auth(self, username, password):
-        self.rest_client.auth = HttpNtlmAuth(username, password)
+        pass
+        # self.rest_client.auth = HttpNtlmAuth(username, password)
 
     def set_basic_auth(self, username, password):
         self.rest_client.auth = HTTPBasicAuth(username, password)
@@ -498,7 +498,6 @@ class ApiClient(object):
                 value = data[klass.attribute_map[attr]]
                 kwargs[attr] = self.deserialize_object(value, attr_type)
 
-        instance = klass(**kwargs)     
+        instance = klass(**kwargs)
 
         return instance
-

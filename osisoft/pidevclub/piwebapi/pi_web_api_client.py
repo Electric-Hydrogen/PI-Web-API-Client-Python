@@ -5,9 +5,9 @@
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  <http://www.apache.org/licenses/LICENSE-2.0>
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -61,14 +61,14 @@ from osisoft.pidevclub.piwebapi.web_id.web_id_helper import WebIdHelper
 
 class PIWebApiClient(object):
     __baseUrl = None
-    __useKerberos = True
+    __useKerberos = False
     __useNtlm = False
     __username = None
     __password = None
     __verifySsl = True
     __config = None
 
-    def __init__(self, baseUrl, useKerberos=True, username=None, password=None, verifySsl=True, useNtlm=False):
+    def __init__(self, baseUrl, useKerberos=False, username=None, password=None, verifySsl=True, useNtlm=False):
         self.__baseUrl = baseUrl
         self.__useKerberos = useKerberos
         self.__useNtlm = useNtlm
@@ -77,9 +77,9 @@ class PIWebApiClient(object):
         self.__verifySsl = verifySsl
         self.__api_client = api_client.ApiClient(self.__baseUrl, self.__verifySsl)
         if self.__useKerberos is True:
-            self.__api_client.set_kerberos_auth()
+            raise RuntimeError("Kerberos not supported")
         elif self.__useNtlm is True:
-            self.__api_client.set_ntlm_auth(username, password)
+            raise RuntimeError("NTLM not supported")
         else:
             self.__api_client.set_basic_auth(self.__username, self.__password)
         self.__homeApi = HomeApi(self.__api_client)
