@@ -74,6 +74,7 @@ class RESTClientObject(object):
             )
 
         if not 200 <= response.status_code <= 299:
+            print(f'PiWebApiClient: {response.status_code} {response.reason} - {response.text}')
             raise ApiException(http_resp=response)
         return response
 
