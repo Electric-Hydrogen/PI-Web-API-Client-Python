@@ -53,20 +53,22 @@ class RESTClientObject(object):
         if query_params:
             url += '?' + urlencode(query_params)
 
+        timeout = (60, 3600) # 1 minute connection timeout; 1 hour response timeout
+
         if method == "GET":
-            response = requests.get(url, auth=self.auth, headers=headers, verify=self.verifySsl)
+            response = requests.get(url, auth=self.auth, headers=headers, verify=self.verifySsl, timeout=timeout)
         elif method == "HEAD":
-            response = requests.head(url, auth=self.auth, headers=headers, verify=self.verifySsl)
+            response = requests.head(url, auth=self.auth, headers=headers, verify=self.verifySsl, timeout=timeout)
         elif method == "OPTIONS":
-            response = requests.options(url, auth=self.auth, headers=headers, verify=self.verifySsl)
+            response = requests.options(url, auth=self.auth, headers=headers, verify=self.verifySsl, timeout=timeout)
         elif method == "POST":
-            response = requests.post(url, json=body, auth=self.auth, headers=headers, verify=self.verifySsl)
+            response = requests.post(url, json=body, auth=self.auth, headers=headers, verify=self.verifySsl, timeout=timeout)
         elif method == "PUT":
-            response = requests.put(url, json=body, auth=self.auth, headers=headers, verify=self.verifySsl)
+            response = requests.put(url, json=body, auth=self.auth, headers=headers, verify=self.verifySsl, timeout=timeout)
         elif method == "PATCH":
-            response = requests.patch(url, json=body, auth=self.auth, headers=headers, verify=self.verifySsl)
+            response = requests.patch(url, json=body, auth=self.auth, headers=headers, verify=self.verifySsl, timeout=timeout)
         elif method == "DELETE":
-            response = requests.delete(url, auth=self.auth, headers=headers, verify=self.verifySsl)
+            response = requests.delete(url, auth=self.auth, headers=headers, verify=self.verifySsl, timeout=timeout)
         else:
             raise ValueError(
                 "http method must be `GET`, `HEAD`, `OPTIONS`,"
