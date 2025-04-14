@@ -45,7 +45,7 @@ class RESTClientObject(object):
         self.verifySsl = verifySsl
 
 
-    def send_request(self, url, method, body, headers=None,query_params=None):
+    def send_request(self, url, method, body, headers=None, query_params=None, timeout=None):
 
         """
         Makes the HTTP request using RESTClient.
@@ -53,7 +53,8 @@ class RESTClientObject(object):
         if query_params:
             url += '?' + urlencode(query_params)
 
-        timeout = (60, 3600) # 1 minute connection timeout; 1 hour response timeout
+        if timeout is None:
+            timeout = (60, 3600) # 1 minute connection timeout; 1 hour response timeout
 
         if method == "GET":
             response = requests.get(url, auth=self.auth, headers=headers, verify=self.verifySsl, timeout=timeout)
