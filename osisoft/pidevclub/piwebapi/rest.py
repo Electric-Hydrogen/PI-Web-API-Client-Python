@@ -54,7 +54,7 @@ class RESTClientObject(object):
             url += '?' + urlencode(query_params)
 
         if timeout is None:
-            timeout = (60, 3600) # 1 minute connection timeout; 1 hour response timeout
+            timeout = (60, 600) # 1 minute connection timeout; 10 minute response timeout
 
         if method == "GET":
             response = requests.get(url, auth=self.auth, headers=headers, verify=self.verifySsl, timeout=timeout)
